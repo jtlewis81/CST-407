@@ -15,9 +15,7 @@ $user_pass = "jpq5Gkkt9oyxP1\$V";
 $database_in_use = "cst407-jokes-app-database";
 
 $mysqli = new mysqli($host, $username, $user_pass, $database_in_use);
-$con = mysqli_init();
-mysqli_ssl_set($conn,NULL,NULL, NULL, NULL, NULL);
-mysqli_real_connect($conn, "cst407.mysql.database.azure.com", "ymappqobfm", "jpq5Gkkt9oyxP1\$V", "cst407-jokes-app-database", 3306, MYSQLI_CLIENT_SSL);
+$conn = sqlsrv_connect($conn, "cst407.mysql.database.azure.com", $arr[] {"cst407-jokes-app-database", "ymappqobfm", "jpq5Gkkt9oyxP1\$V" });
 
 
 if ($mysqli->connect_error) {

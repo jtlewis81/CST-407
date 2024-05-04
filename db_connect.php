@@ -19,10 +19,58 @@ $mysqli = new mysqli($host, $username, $user_pass, $database_in_use);
 //mysqli_ssl_set($con,NULL,NULL, NULL, NULL, NULL);
 //$mysqli = mysqli_real_connect($con, "cst407.mysql.database.azure.com", "ymappqobfm", "jpq5Gkkt9oyxP1\$V", "cst407-jokes-app-database", 3306, MYSQLI_CLIENT_SSL);
 
-// $mysqli = new mysqli($host, $username, $user_pass, $database_in_use);
+
 if ($mysqli->connect_error) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+    exit;
 }
+
+// ADDED AUTO SETUP FOR TABLES
+
+// Check if tables exist, if not, create them
+$jokesTableExists = false;
+$usersTableExists = false;
+
+$sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'jokes_table'";
+$stmt = sqlsrv_query($conn, $sql);
+if ($stmt && sqlsrv_has_rows($stmt)) {
+    $jokesTableExists = true;
+}
+
+$sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'users'";
+$stmt = sqlsrv_query($conn, $sql);
+if ($stmt && sqlsrv_has_rows($stmt)) {
+    $usersTableExists = true;
+}
+
+// Create tables if they don't exist
+if (!$jokesTableExists) {
+    $sql = "CREATE TABLE jokes_table (
+              JokeID int NOT NULL PRIMARY KEY,
+              Joke_question varchar(500) NOT NULL,
+              Joke_answer varchar(500) NOT NULL,
+              user_id char(100) NOT NULL
+            )";
+    $stmt = sqlsrv_query($conn, $sql);
+    if (!$stmt) {
+        die("Error creating jokes_table: " . sqlsrv_errors());
+    }
+}
+
+if (!$usersTableExists) {
+    $sql = "CREATE TABLE users (
+              user_id int NOT NULL PRIMARY KEY,
+              user_name text NOT NULL,
+              password text NOT NULL,
+              email_address text,
+              admin_role tinyint DEFAULT NULL
+            )";
+    $stmt = sqlsrv_query($conn, $sql);
+    if (!$stmt) {
+        die("Error creating users table: " . sqlsrv_errors());
+    }
+}
+
 echo $mysqli->host_info . "<br>";
 
 ?>

@@ -44,7 +44,7 @@
     </div>
 
     <?php
-    //$mysqli->close();
+    $mysqli->close();
     ?>
 </body>
 

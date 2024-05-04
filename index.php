@@ -87,7 +87,7 @@ include "db_connect.php";
 </div>
 
 <?php 
-    //$mysqli->close();   
+    $mysqli->close();   
 ?>
 
 </body>

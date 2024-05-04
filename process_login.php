@@ -20,7 +20,7 @@ $password = $_POST['password'];
 
 echo "<h2>You attempted to login with " . $username . " and " . $password . "</h2>";
 
-$stmt = $mysqli->prepare("SELECT users.user_id, users.user_name, users.password FROM users WHERE users.user_name = ?");
+$stmt = $conn->prepare("SELECT users.user_id, users.user_name, users.password FROM users WHERE users.user_name = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $stmt->store_result();

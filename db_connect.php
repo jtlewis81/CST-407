@@ -14,10 +14,11 @@ $user_pass = 'jpq5Gkkt9oyxP1$V';
 //$database_in_use = "jokesdb";
 $database_in_use = 'cst407-jokes-app-database';
 
-$mysqli = new mysqli($host, $username, $user_pass, $database_in_use);
+$conn = mysqli_init();
+mysqli_real_connect($conn, $host, $username, $user_pass, $database_in_use, 3306);
 
-if ($mysqli->connect_error) {
-    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+if (!$conn) {
+    echo "Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
     exit;
 }
 
@@ -25,8 +26,8 @@ if ($mysqli->connect_error) {
 
 // Check connection
 // Check connection
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
+if ($conn->connect_error) {
+    die("Connection error: " . $conn->connect_error);
 }
 
 // Check if tables exist, if not, create them
@@ -34,13 +35,13 @@ $jokesTableExists = false;
 $usersTableExists = false;
 
 $sql = "SHOW TABLES LIKE 'jokes_table'";
-$result = $mysqli->query($sql);
+$result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $jokesTableExists = true;
 }
 
 $sql = "SHOW TABLES LIKE 'users'";
-$result = $mysqli->query($sql);
+$result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $usersTableExists = true;
 }
@@ -54,8 +55,8 @@ if (!$jokesTableExists) {
               user_id char(100) NOT NULL,
               PRIMARY KEY (JokeID)
             )";
-    if ($mysqli->query($sql) === false) {
-        die("Error creating jokes_table: " . $mysqli->error);
+    if ($conn->query($sql) === false) {
+        die("Error creating jokes_table: " . $conn->error);
     }
 }
 
@@ -68,11 +69,11 @@ if (!$usersTableExists) {
               admin_role tinyint DEFAULT NULL,
               PRIMARY KEY (user_id)
             )";
-    if ($mysqli->query($sql) === false) {
-        die("Error creating users table: " . $mysqli->error);
+    if ($conn->query($sql) === false) {
+        die("Error creating users table: " . $conn->error);
     }
 }
 
-echo $mysqli->host_info . "<br>";
+echo $conn->host_info . "<br>";
 
 ?>

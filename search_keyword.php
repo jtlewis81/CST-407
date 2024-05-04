@@ -26,7 +26,7 @@ $sql = "SELECT JokeID, Joke_question, Joke_answer, jokes_table.user_id, user_nam
 
 //$keywordfromform = "%" . $keywordfromform . "%";
 
-$stmt = $conn->prepare($sql);
+$stmt = $mysqli->prepare($sql);
 //$stmt->bind_param("s", $keywordfromform);
 $stmt->execute();
 $stmt->store_result();

@@ -22,7 +22,7 @@ echo "<h2>Trying to add a new user " . $new_username . " pw =  " . $new_password
 
 // check to see if this username has already been registered.
 $sql = "SELECT * FROM users WHERE user_name = '$new_username'";
-$result = $conn->query($sql) or die(mysqli_error($conn));
+$result = $mysqli->query($sql) or die(mysqli_error($mysqli));
 
 if ($result->num_rows > 0) {
     echo "The username " . $new_username . " is already in use.  Try another.";
@@ -62,7 +62,7 @@ if ($new_password1 != $new_password2) {
 
 // add the new user
 $sql = "INSERT INTO users (user_id, user_name, users.password) VALUES (null, '$new_username', '$hashed_password')";
-$result = $conn->query($sql) or die(mysqli_error($conn));
+$result = $mysqli->query($sql) or die(mysqli_error($mysqli));
 if ($result) {
     echo "Registration success!";
 } else {

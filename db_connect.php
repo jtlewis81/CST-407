@@ -23,7 +23,7 @@ if ($mysqli->connect_error) {
 
 // ADDED AUTO SETUP FOR TABLES
 
-$conn = sqlsrv_connect("cst407.mysql.database.azure.com", array("cst407-jokes-app-database", "ymappqobfm", "jpq5Gkkt9oyxP1\$V") );
+$conn = sqlsrv_connect("cst407.mysql.database.azure.com", $array = array("cst407-jokes-app-database", "ymappqobfm", "jpq5Gkkt9oyxP1\$V") );
 
 // Check connection
 if ($conn === false) {

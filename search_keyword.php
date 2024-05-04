@@ -22,6 +22,54 @@ $keywordfromform = addslashes($_GET['keyword']);
 echo $keywordfromform;
 echo "<h2>Show all jokes with the word " . $keywordfromform . "</h2>";
 
+// FIX FOR DB
+
+// Check if tables exist, if not, create them
+$jokesTableExists = false;
+$usersTableExists = false;
+
+$sql = "SHOW TABLES LIKE 'jokes_table'";
+$result = mysqli_query($conn, $sql);
+if ($result->num_rows > 0) {
+    $jokesTableExists = true;
+}
+
+$sql = "SHOW TABLES LIKE 'users'";
+$result = mysqli_query($conn, $sql);
+if ($result->num_rows > 0) {
+    $usersTableExists = true;
+}
+
+// Create tables if they don't exist
+if (!$jokesTableExists) {
+    $sql = "CREATE TABLE jokes_table (
+              JokeID int NOT NULL,
+              Joke_question varchar(500) NOT NULL,
+              Joke_answer varchar(500) NOT NULL,
+              user_id char(100) NOT NULL,
+              PRIMARY KEY (JokeID)
+            )";
+    if (mysqli_query($conn, $sql) === false) {
+        die("Error creating jokes_table: " . mysqli_error($conn));
+    }
+}
+
+if (!$usersTableExists) {
+    $sql = "CREATE TABLE users (
+              user_id int NOT NULL,
+              user_name text NOT NULL,
+              password text NOT NULL,
+              email_address text,
+              admin_role tinyint DEFAULT NULL,
+              PRIMARY KEY (user_id)
+            )";
+    if (mysqli_query($conn, $sql) === false) {
+        die("Error creating users table: " . mysqli_error($conn));
+    }
+}
+
+// END FIX
+
 $sql = "SELECT JokeID, Joke_question, Joke_answer, jokes_table.user_id, user_name FROM Jokes_table JOIN users ON users.user_id = jokes_table.user_id WHERE Joke_question LIKE '%$keywordfromform%'";
 
 //$keywordfromform = "%" . $keywordfromform . "%";

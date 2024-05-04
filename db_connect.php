@@ -16,14 +16,19 @@ $database_in_use = "cst407-jokes-app-database";
 
 $mysqli = new mysqli($host, $username, $user_pass, $database_in_use);
 
-$conn = sqlsrv_connect("cst407.mysql.database.azure.com", array("cst407-jokes-app-database", "ymappqobfm", "jpq5Gkkt9oyxP1\$V") );
-
 if ($mysqli->connect_error) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     exit;
 }
 
 // ADDED AUTO SETUP FOR TABLES
+
+$conn = sqlsrv_connect("cst407.mysql.database.azure.com", array("cst407-jokes-app-database", "ymappqobfm", "jpq5Gkkt9oyxP1\$V") );
+
+// Check connection
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
 
 // Check if tables exist, if not, create them
 $jokesTableExists = false;

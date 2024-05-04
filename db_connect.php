@@ -23,54 +23,53 @@ if ($mysqli->connect_error) {
 
 // ADDED AUTO SETUP FOR TABLES
 
-$conn = sqlsrv_connect("cst407.mysql.database.azure.com", $array = array("cst407-jokes-app-database", "ymappqobfm", "jpq5Gkkt9oyxP1\$V") );
-
 // Check connection
-if ($conn === false) {
-    die(print_r(sqlsrv_errors(), true));
+// Check connection
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
 }
 
 // Check if tables exist, if not, create them
 $jokesTableExists = false;
 $usersTableExists = false;
 
-$sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'jokes_table'";
-$stmt = sqlsrv_query($conn, $sql);
-if ($stmt && sqlsrv_has_rows($stmt)) {
+$sql = "SHOW TABLES LIKE 'jokes_table'";
+$result = $mysqli->query($sql);
+if ($result->num_rows > 0) {
     $jokesTableExists = true;
 }
 
-$sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'users'";
-$stmt = sqlsrv_query($conn, $sql);
-if ($stmt && sqlsrv_has_rows($stmt)) {
+$sql = "SHOW TABLES LIKE 'users'";
+$result = $mysqli->query($sql);
+if ($result->num_rows > 0) {
     $usersTableExists = true;
 }
 
 // Create tables if they don't exist
 if (!$jokesTableExists) {
     $sql = "CREATE TABLE jokes_table (
-              JokeID int NOT NULL PRIMARY KEY,
+              JokeID int NOT NULL,
               Joke_question varchar(500) NOT NULL,
               Joke_answer varchar(500) NOT NULL,
-              user_id char(100) NOT NULL
+              user_id char(100) NOT NULL,
+              PRIMARY KEY (JokeID)
             )";
-    $stmt = sqlsrv_query($conn, $sql);
-    if (!$stmt) {
-        die("Error creating jokes_table: " . sqlsrv_errors());
+    if ($mysqli->query($sql) === false) {
+        die("Error creating jokes_table: " . $mysqli->error);
     }
 }
 
 if (!$usersTableExists) {
     $sql = "CREATE TABLE users (
-              user_id int NOT NULL PRIMARY KEY,
+              user_id int NOT NULL,
               user_name text NOT NULL,
               password text NOT NULL,
               email_address text,
-              admin_role tinyint DEFAULT NULL
+              admin_role tinyint DEFAULT NULL,
+              PRIMARY KEY (user_id)
             )";
-    $stmt = sqlsrv_query($conn, $sql);
-    if (!$stmt) {
-        die("Error creating users table: " . sqlsrv_errors());
+    if ($mysqli->query($sql) === false) {
+        die("Error creating users table: " . $mysqli->error);
     }
 }
 

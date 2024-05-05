@@ -49,8 +49,11 @@ include "db_connect.php";
 </form>
 
 <hr>
-
-<form class="form-horizontal" action="add_joke.php">
+<?php
+if (isset($_SESSION['userid'])) {
+?>
+    // User is logged in, proceed with the page content
+    <form class="form-horizontal" action="add_joke.php">
 <fieldset>
     <legend>Add a new Joke</legend>
 
@@ -76,6 +79,11 @@ include "db_connect.php";
 
     </fieldset>
 </form>
+<?php
+}
+?>
+ 
+
 
 <div>
     <a href="login_form.php">Login</a>

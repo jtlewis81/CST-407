@@ -19,10 +19,13 @@ ini_set('display_errors', 1);
 
 $keywordfromform = addslashes($_GET['keyword']);
 
-//echo $keywordfromform;
-echo "<h2>Show all jokes with the word " . $keywordfromform . "</h2>";
 
-// FIX FOR DB
+echo "<h2>Show all jokes containing: " . $keywordfromform . "</h2>";
+
+// FIX FOR DB - left in for explanation only, would be removed for production
+// added this temporarily to get the tables put into the azure mysql db.
+// as best as I could find, they do not have a way to access it directly during a free trial
+// or, they simply don't do a good job of explaining how.
 /*
 // Check if tables exist, if not, create them
 $jokesTableExists = false;
@@ -72,15 +75,11 @@ if (!$usersTableExists) {
 
 $sql = "SELECT JokeID, Joke_question, Joke_answer, jokes_table.user_id, user_name FROM Jokes_table JOIN users ON users.user_id = jokes_table.user_id WHERE Joke_question LIKE '%$keywordfromform%'";
 
-//$keywordfromform = "%" . $keywordfromform . "%";
-
 $stmt = $mysqli->prepare($sql);
-//$stmt->bind_param("s", $keywordfromform);
 $stmt->execute();
 $stmt->store_result();
 $stmt->bind_result($JokeID, $Joke_question, $Joke_answer, $userid, $username);
 
-// echo "SQL = " . $sql . "<br>";
 if ($stmt->num_rows > 0) {
   // output data of each row
   echo "<div id='accordion'>";

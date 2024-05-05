@@ -35,7 +35,7 @@ if ($result->num_rows > 0) {
 }
 
 $sql = "SHOW TABLES LIKE 'users'";
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($mysqli, $sql);
 if ($result->num_rows > 0) {
     $usersTableExists = true;
 }
@@ -49,8 +49,8 @@ if (!$jokesTableExists) {
               user_id char(100) NOT NULL,
               PRIMARY KEY (JokeID)
             )";
-    if (mysqli_query($conn, $sql) === false) {
-        die("Error creating jokes_table: " . mysqli_error($conn));
+    if (mysqli_query($mysqli, $sql) === false) {
+        die("Error creating jokes_table: " . mysqli_error($mysqli));
     }
 }
 
@@ -63,8 +63,8 @@ if (!$usersTableExists) {
               admin_role tinyint DEFAULT NULL,
               PRIMARY KEY (user_id)
             )";
-    if (mysqli_query($conn, $sql) === false) {
-        die("Error creating users table: " . mysqli_error($conn));
+    if (mysqli_query($mysqli, $sql) === false) {
+        die("Error creating users table: " . mysqli_error($mysqli));
     }
 }
 

@@ -29,7 +29,7 @@ $jokesTableExists = false;
 $usersTableExists = false;
 
 $sql = "SHOW TABLES LIKE 'jokes_table'";
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($mysqli, $sql);
 if ($result->num_rows > 0) {
     $jokesTableExists = true;
 }

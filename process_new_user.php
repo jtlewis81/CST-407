@@ -61,7 +61,7 @@ if ($new_password1 != $new_password2) {
 }
 
 // add the new user
-$sql = "INSERT INTO users (user_id, user_name, users.password) VALUES (null, '$new_username', '$hashed_password')";
+$sql = "INSERT INTO users (user_name, users.password) VALUES ('$new_username', '$hashed_password')";
 $result = $mysqli->query($sql) or die(mysqli_error($mysqli));
 if ($result) {
     echo "Registration success!";

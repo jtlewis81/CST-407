@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+if (isset($_SESSION['user_id'])) {
+    // User is logged in, proceed with the page content
+} else {
+    // Redirect to login page or show login form
+    header("Location: login_form.php");
+    exit;
+}
+
+include "db_connect.php"; 
+?>
 <html>
 <head>
     <!-- Compiled and minified CSS -->
@@ -17,21 +34,6 @@
 <h1>Jokes Page</h1>
 <a href="search_all_jokes.php">Show all jokes</a>
 <br>
-
-<?php
-$_SESSION = session_start();
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-echo "Session variable = ";
-echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";
-
-include "db_connect.php"; 
-?>
 
 <form class="form-horizontal" action="search_keyword.php">
 <fieldset>

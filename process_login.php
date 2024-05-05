@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    include "db_connect.php";
+?>
+
 <html>
 
 <head>
@@ -9,11 +17,6 @@
 </head>
 
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-include "db_connect.php";
-
 $username = $_POST['username'];
 $password = $_POST['password'];
 

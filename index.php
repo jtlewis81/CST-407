@@ -5,14 +5,6 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-if (isset($_SESSION['userid'])) {
-    // User is logged in, proceed with the page content
-} else {
-    // Redirect to login page or show login form
-    header("Location: login_form.php");
-    exit;
-}
-
 include "db_connect.php"; 
 ?>
 <html>

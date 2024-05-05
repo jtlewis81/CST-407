@@ -1,14 +1,6 @@
 <?php
 session_start();
 
-if (isset($_SESSION['user_id'])) {
-    // User is logged in, proceed with the page content
-} else {
-    // Redirect to login page or show login form
-    header("Location: login_form.php");
-    exit;
-}
-
 include "db_connect.php";
 ?>
 

@@ -69,7 +69,7 @@ if ($result) {
     echo "Something went wrong.  Not registered.";
 }
 
-echo "<a href = 'index.php'>Return to main</a>";
+echo "<br><br><a href = 'index.php'>Return to main</a>";
 ?>
 
 </html>

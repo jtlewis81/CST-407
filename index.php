@@ -23,6 +23,12 @@ include "db_connect.php";
 </head>
 <body>
 
+<?php
+if (isset($_SESSION['userid'])) {
+echo "Logged in as: " . $_SESSION['username'];
+}
+?>
+
 <h1>Jokes Page</h1>
 <a href="search_all_jokes.php">Show all jokes</a>
 <br>
@@ -52,7 +58,7 @@ include "db_connect.php";
 <?php
 if (isset($_SESSION['userid'])) {
 ?>
-    // User is logged in, proceed with the page content
+    <!-- User is logged in, proceed with the page content -->
     <form class="form-horizontal" action="add_joke.php">
 <fieldset>
     <legend>Add a new Joke</legend>

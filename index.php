@@ -98,7 +98,7 @@ if (isset($_SESSION['userid'])) {
     <a href="register_new_user.php">Register</a>
     <br>
     <br>
-    <!-- <a href="logout.php">Logout</a> This page does not work for some reason. -->
+    <a href="logout.php">Logout</a>
 </div>
 
 <?php 

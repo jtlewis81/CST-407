@@ -88,10 +88,13 @@ if ($stmt->num_rows > 0) {
     $safe_joke_question = htmlspecialchars($Joke_question);
     $safe_joke_answer = htmlspecialchars($Joke_answer);
     echo "<h3>" . $safe_joke_question . "</h3>";
-    echo "<div><p>" . $safe_joke_answer . " -- Submitted by user " . $username . "</p></div>";
+    echo "<div><p>" . $safe_joke_answer . " -- Submitted by user: " . $username . "</p></div>";
   }
   echo "</div>";
 } else {
   echo "0 results";
 }
+
+echo "<br><a href='index.php'>Return to main page</a>";
+
 ?>

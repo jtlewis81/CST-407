@@ -1,6 +1,7 @@
 <?php
+    session_start();
     echo "You have been logged out<br>";
     $_SESSION = [];
     session_destroy();
 ?>
-<a href="index.php">Return to main page</a>
+<br><a href="index.php">Return to main page</a>

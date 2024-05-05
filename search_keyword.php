@@ -39,11 +39,11 @@ $result = mysqli_query($mysqli, $sql);
 if ($result->num_rows > 0) {
     $usersTableExists = true;
 }
-
+/*
 // Create tables if they don't exist
 if (!$jokesTableExists) {
     $sql = "CREATE TABLE jokes_table (
-              JokeID int NOT NULL,
+              JokeID int NOT NULL AUTO_INCREMENT,
               Joke_question varchar(500) NOT NULL,
               Joke_answer varchar(500) NOT NULL,
               user_id char(100) NOT NULL,
@@ -56,7 +56,7 @@ if (!$jokesTableExists) {
 
 if (!$usersTableExists) {
     $sql = "CREATE TABLE users (
-              user_id int NOT NULL,
+              user_id int NOT NULL AUTO_INCREMENT,
               user_name text NOT NULL,
               password text NOT NULL,
               email_address text,
@@ -67,6 +67,43 @@ if (!$usersTableExists) {
         die("Error creating users table: " . mysqli_error($mysqli));
     }
 }
+*/
+
+// Drop tables if they exist
+$sql = "DROP TABLE IF EXISTS jokes_table";
+if ($mysqli->query($sql) === false) {
+    die("Error dropping jokes_table: " . $mysqli->error);
+}
+
+$sql = "DROP TABLE IF EXISTS users";
+if ($mysqli->query($sql) === false) {
+    die("Error dropping users table: " . $mysqli->error);
+}
+
+// Create tables
+$sql = "CREATE TABLE jokes_table (
+          JokeID int NOT NULL AUTO_INCREMENT,
+          Joke_question varchar(500) NOT NULL,
+          Joke_answer varchar(500) NOT NULL,
+          user_id char(100) NOT NULL,
+          PRIMARY KEY (JokeID)
+        )";
+if ($mysqli->query($sql) === false) {
+    die("Error creating jokes_table: " . $mysqli->error);
+}
+
+$sql = "CREATE TABLE users (
+          user_id int NOT NULL AUTO_INCREMENT,
+          user_name text NOT NULL,
+          password text NOT NULL,
+          email_address text,
+          admin_role tinyint DEFAULT NULL,
+          PRIMARY KEY (user_id)
+        )";
+if ($mysqli->query($sql) === false) {
+    die("Error creating users table: " . $mysqli->error);
+}
+
 
 // END FIX
 

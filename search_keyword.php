@@ -19,7 +19,7 @@ ini_set('display_errors', 1);
 
 $keywordfromform = addslashes($_GET['keyword']);
 
-echo $keywordfromform;
+//echo $keywordfromform;
 echo "<h2>Show all jokes with the word " . $keywordfromform . "</h2>";
 
 // FIX FOR DB

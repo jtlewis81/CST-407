@@ -23,6 +23,11 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+echo "Session variable = ";
+echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
+
 include "db_connect.php"; 
 ?>
 

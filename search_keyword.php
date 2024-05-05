@@ -80,7 +80,7 @@ $stmt->execute();
 $stmt->store_result();
 $stmt->bind_result($JokeID, $Joke_question, $Joke_answer, $userid, $username);
 
-echo "SQL = " . $sql . "<br>";
+// echo "SQL = " . $sql . "<br>";
 if ($stmt->num_rows > 0) {
   // output data of each row
   echo "<div id='accordion'>";
